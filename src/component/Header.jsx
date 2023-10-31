@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { useEffect, useRef } from "react";
 
-import { BURGER_PNG_IMG } from "../utils";
-import { useEffect } from "react";
+import { BURGER_PNG_IMG } from "../utils/constants";
 
 const Header = () => {
   return (
@@ -19,10 +17,10 @@ const Header = () => {
 
       <div className="">
         <ul className="flex gap-6 text-white font-bold">
-          <NavLink to={"/"} activeClassName>
+          <NavLink to={"/"} activeclassname="active">
             <li>Home</li>
           </NavLink>
-          <NavLink to={"/about"} activeClassName>
+          <NavLink to={"/about"} activeclassname="active">
             <li>About</li>
           </NavLink>
           <li>Contact</li>
