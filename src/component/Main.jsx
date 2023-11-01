@@ -2,9 +2,12 @@ import { RES_LIST_URL } from "../utils/constants";
 import useResList from "../utils/useResList";
 import { CDN_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import useBestRestaurant from "../utils/useBestRestaurant";
 
 const Main = () => {
   const resList = useResList(RES_LIST_URL);
+
+  useBestRestaurant();
 
   /*
    * Upon clicking the Top Rated Restaurants button
