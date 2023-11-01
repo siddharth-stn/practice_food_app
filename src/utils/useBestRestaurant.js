@@ -1,4 +1,5 @@
 import useResList from "./useResList";
+import { useState } from "react";
 import { RES_LIST_URL } from "./constants";
 
 /*
@@ -9,9 +10,13 @@ import { RES_LIST_URL } from "./constants";
  */
 
 const useBestRestaurant = () => {
+  const [filteredResList, setFilteredResList] = useState(null);
+
   const resList = useResList(RES_LIST_URL);
 
-  console.log(resList[0]?.info?.avgRating);
+  if (resList !== null) {
+    console.log(resList[0]?.info?.avgRating);
+  }
 };
 
 export default useBestRestaurant;
