@@ -18,6 +18,7 @@ const Main = () => {
   const resList = useResList(RES_LIST_URL);
 
   useEffect(() => {
+    console.log(resList);
     setUpdatedRes(resList);
   }, [resList]);
 
@@ -34,29 +35,26 @@ const Main = () => {
    * matching the query entered. If name matches the query then setUpdateRes() to the new list
    */
 
-  const findQueryRes = (event) => {
-    setQueryStr(event.target.value);
-
-    // if (queryStr != null) {
-    //   const someRes = updatedRes.filter((res) => {
-    //     return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
-    //   });
-    //   console.log(someRes);
-    //   console.log(someRes.length);
-    //   if (someRes.length != 0) {
-    //     setUpdatedRes(someRes);
-    //   } else {
-    //     setUpdatedRes(resList);
-    //   }
-    // }
+  const findQueryRes = () => {
+    if (queryStr != null) {
+      console.log(updatedRes);
+      const someRes = updatedRes.filter((res) => {
+        return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
+      });
+      if (someRes.length != 0) {
+        setUpdatedRes(someRes);
+      } else {
+        setUpdatedRes(resList);
+      }
+    }
   };
 
-  if (updatedRes === null) {
+  if (updatedRes === null || updatedRes === undefined) {
     return <Shimmer />;
   }
 
   return (
-    <div className="bg-yellow-300 pt-8 pb-6 px-32 ">
+    <div className="h-screen bg-yellow-300 pt-8 pb-6 px-32 ">
       <div className="flex items-center gap-10 ">
         <div className="flex items-center relative">
           <input
