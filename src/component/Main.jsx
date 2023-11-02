@@ -1,14 +1,19 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 import { RES_LIST_URL } from "../utils/constants";
-import useResList from "../utils/useResList";
 import { CDN_URL } from "../utils/constants";
-import Shimmer from "./Shimmer";
+
+import useResList from "../utils/useResList";
 import useBestRestaurant from "../utils/useBestRestaurant";
+
+import Shimmer from "./Shimmer";
 
 import { useState, useEffect } from "react";
 
 const Main = () => {
   const [updatedRes, setUpdatedRes] = useState(null);
-  const [queryStr, setQueryStr] = useState(null);
+  const [queryStr, setQueryStr] = useState("");
 
   const resList = useResList(RES_LIST_URL);
 
@@ -32,18 +37,18 @@ const Main = () => {
   const findQueryRes = (event) => {
     setQueryStr(event.target.value);
 
-    if (queryStr != null) {
-      const someRes = updatedRes.filter((res) => {
-        return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
-      });
-      console.log(someRes);
-      console.log(someRes.length);
-      if (someRes.length != 0) {
-        setUpdatedRes(someRes);
-      } else {
-        setUpdatedRes(resList);
-      }
-    }
+    // if (queryStr != null) {
+    //   const someRes = updatedRes.filter((res) => {
+    //     return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
+    //   });
+    //   console.log(someRes);
+    //   console.log(someRes.length);
+    //   if (someRes.length != 0) {
+    //     setUpdatedRes(someRes);
+    //   } else {
+    //     setUpdatedRes(resList);
+    //   }
+    // }
   };
 
   if (updatedRes === null) {
@@ -53,13 +58,26 @@ const Main = () => {
   return (
     <div className="bg-yellow-300 pt-8 pb-6 px-32 ">
       <div className="flex items-center gap-10 ">
-        <div>
+        <div className="flex items-center relative">
           <input
             type="text"
-            className="p-1 px-3 rounded border-red-500 border-2"
+            className="p-1 px-3 pr-7 rounded border-red-500 border-2"
             placeholder="I would eat at..."
-            onChange={findQueryRes}
+            value={queryStr}
+            onChange={(event) => {
+              setQueryStr(event.target.value);
+            }}
           />
+          <div
+            className="relative right-7 hover:cursor-pointer"
+            onClick={findQueryRes}
+          >
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              bounce
+              style={{ color: "#db0a34" }}
+            />
+          </div>
         </div>
         <button
           onClick={findTopRatedRes}
