@@ -4,31 +4,39 @@ import { CDN_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import useBestRestaurant from "../utils/useBestRestaurant";
 
+import { useState, useEffect } from "react";
+
 const Main = () => {
+  const [updatedRes, setUpdatedRes] = useState(null);
+
   const resList = useResList(RES_LIST_URL);
 
-  useBestRestaurant();
+  useEffect(() => {
+    setUpdatedRes(resList);
+  }, [resList]);
 
-  /*
-   * Upon clicking the Top Rated Restaurants button
-   * Find the restaurants having ratings 4 or more
-   * Then make useState() variable and store this list on this variable
-   * Now display the list of these restaurants in the UI
-   */
+  const filteredResList = useBestRestaurant();
 
-  if (resList === null) {
+  const findTopRatedRes = () => {
+    setUpdatedRes(filteredResList);
+  };
+
+  if (updatedRes === null) {
     return <Shimmer />;
   }
 
   return (
     <div className="bg-yellow-300 pt-8 pb-6 px-32 ">
       <div>
-        <button className="bg-red-500 text-white p-1 px-3 rounded shadow-xl font-bold hover:border hover:border-solid hover:border-white hover:cursor-pointer">
+        <button
+          onClick={findTopRatedRes}
+          className="bg-red-500 text-white p-1 px-3 rounded shadow-xl font-bold hover:border hover:border-solid hover:border-white hover:cursor-pointer"
+        >
           Top Rated Restaurants
         </button>
       </div>
       <div className="pt-8 pb-6 flex flex-wrap gap-10">
-        {resList.map((res) => {
+        {updatedRes?.map((res) => {
           return (
             <div
               key={res?.info?.id}

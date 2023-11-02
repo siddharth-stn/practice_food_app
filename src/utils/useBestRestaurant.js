@@ -1,5 +1,5 @@
 import useResList from "./useResList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RES_LIST_URL } from "./constants";
 
 /*
@@ -14,9 +14,16 @@ const useBestRestaurant = () => {
 
   const resList = useResList(RES_LIST_URL);
 
-  if (resList !== null) {
-    console.log(resList[0]?.info?.avgRating);
-  }
+  useEffect(() => {
+    if (resList !== null) {
+      setFilteredResList(
+        resList?.filter((res) => {
+          return res?.info?.avgRating >= 4;
+        })
+      );
+    }
+  }, [resList]);
+  return filteredResList;
 };
 
 export default useBestRestaurant;
