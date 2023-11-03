@@ -18,7 +18,6 @@ const Main = () => {
   const resList = useResList(RES_LIST_URL);
 
   useEffect(() => {
-    console.log(resList);
     setUpdatedRes(resList);
   }, [resList]);
 
@@ -28,17 +27,24 @@ const Main = () => {
     setUpdatedRes(filteredResList);
   };
 
-  /*
-   * When user inputs a letter
-   * then the function starts cheking the list of
-   * restaurants for a name of restaurant
-   * matching the query entered. If name matches the query then setUpdateRes() to the new list
-   */
-
   const findQueryRes = () => {
     if (queryStr != null) {
-      console.log(updatedRes);
-      const someRes = updatedRes.filter((res) => {
+      const someRes = resList.filter((res) => {
+        return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
+      });
+      if (someRes.length != 0) {
+        setUpdatedRes(someRes);
+      } else {
+        setUpdatedRes(resList);
+      }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    console.log("key pressed");
+    if (event.key !== "Enter") return;
+    if (queryStr != null) {
+      const someRes = resList.filter((res) => {
         return res?.info?.name.toLowerCase().includes(queryStr.toLowerCase());
       });
       if (someRes.length != 0) {
@@ -54,7 +60,7 @@ const Main = () => {
   }
 
   return (
-    <div className="h-screen bg-yellow-300 pt-8 pb-6 px-32 ">
+    <div className="h-full bg-yellow-300 pt-8 pb-6 px-32 ">
       <div className="flex items-center gap-10 ">
         <div className="flex items-center relative">
           <input
@@ -65,6 +71,7 @@ const Main = () => {
             onChange={(event) => {
               setQueryStr(event.target.value);
             }}
+            onKeyDown={handleKeyPress}
           />
           <div
             className="relative right-7 hover:cursor-pointer"
