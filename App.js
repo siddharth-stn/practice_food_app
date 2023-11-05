@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./src/component/Header";
 import Main from "./src/component/Main";
 import About from "./src/component/About";
+import ResPage from "./src/component/ResPage";
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurants/:resId",
-        element,
+        element: <ResPage />,
       },
     ],
   },
