@@ -42,7 +42,6 @@ const Main = () => {
   };
 
   const handleKeyPress = (event) => {
-    console.log("key pressed");
     if (event.key !== "Enter") return;
     if (queryStr != null) {
       const someRes = resList.filter((res) => {

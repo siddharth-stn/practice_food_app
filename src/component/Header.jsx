@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 
 import { BURGER_PNG_IMG } from "../utils/constants";
 
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 const Header = () => {
   return (
     <div className="p-4 px-10 bg-red-500 flex items-center justify-between">
@@ -11,7 +13,7 @@ const Header = () => {
         </div>
         <div className="h-9 text-white font-bold bg-yellow-500 p-2 rounded flex gap-3 items-center">
           <p className="whitespace-nowrap ">Network Status:</p>
-          <span>{"🟢"}</span>
+          <span>{useOnlineStatus() === true ? "🟢" : "🔴"}</span>
         </div>
       </div>
 
